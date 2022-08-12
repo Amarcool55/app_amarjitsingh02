@@ -26,7 +26,7 @@ pipeline {
       steps {
         echo "Starting Sonar analysis"
         withSonarQubeEnv('Test_Sonar') {
-          bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"Test\" /d:sonar.verbose=true -d:sonar.cs.xunit.reportsPath='test-project/TestResults/TestResult.xml'"
+          bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"sonar-amarjitsingh02\" /d:sonar.verbose=true -d:sonar.cs.xunit.reportsPath='test-project/TestResults/TestResult.xml'"
         }
       }
     }
