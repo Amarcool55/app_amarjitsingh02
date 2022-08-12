@@ -6,9 +6,10 @@ pipeline {
   }
 
   environment {
-        scannerHome = tool name:'sonar_scanner_dotnet'
-    }
-  
+    scannerHome = tool name:'sonar_scanner_dotnet'
+    username = 'amarjitsingh02'
+  }
+
   stages {
     stage('start') {
       steps {
@@ -26,7 +27,7 @@ pipeline {
       steps {
         echo "Starting Sonar analysis"
         withSonarQubeEnv('Test_Sonar') {
-          bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"sonar-amarjitsingh02\" /d:sonar.verbose=true -d:sonar.cs.xunit.reportsPath='test-project/TestResults/TestResult.xml'"
+          bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:\"sonar-${username}\" /d:sonar.verbose=true -d:sonar.cs.xunit.reportsPath='test-project/TestResults/TestResult.xml'"
         }
       }
     }
@@ -50,6 +51,14 @@ pipeline {
         withSonarQubeEnv('Test_Sonar') {
           bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
         }
+      }
+    }
+
+    stage('Kubernetes Deployment') {
+      steps {
+        echo "Release artifacts"
+        bat "dotnet publish -c Release -o publish/"
+        bat "docker build -t amarcool55/i-${username}-${BRANCH_NAME}:latest ."
       }
     }
     
