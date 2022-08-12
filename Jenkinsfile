@@ -58,7 +58,18 @@ pipeline {
       steps {
         echo "Release artifacts"
         bat "dotnet publish -c Release -o publish/"
+
+        echo "Create docker image"
         bat "docker build -t amarcool55/i-${username}-${BRANCH_NAME}:latest ."
+
+        echo "Publish docker image"
+        script {
+			withDockerRegistry(credentialsId:'4774f646-4917-469c-8299-2f5cf5d94652', toolName: 'docker') {
+				bat "docker push amarcool55/i-${username}-${BRANCH_NAME}:latest"
+			}
+		}
+
+        echo "Run Kubernetes Deployment"
       }
     }
     
