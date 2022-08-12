@@ -5,9 +5,6 @@ pipeline {
     dockerTool 'Docker'
   }
 
-  environment {
-    scannerHome = tool name:"sonar_scanner_dotnet"
-  }
 
   stages {
     stage('start') {
