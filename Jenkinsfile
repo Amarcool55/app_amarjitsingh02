@@ -6,7 +6,7 @@ pipeline {
   }
 
   environment {
-    scannerHome = tool name:'Sonarscanner dotnet'
+    scannerHome = tool name:"sonar_scanner_dotnet"
   }
 
   stages {
