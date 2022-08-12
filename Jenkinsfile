@@ -6,7 +6,7 @@ pipeline {
   }
 
   environment {
-    scannerHome = tool name:'sonar_scanner_dotnet', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+    scannerHome = tool name:'Sonarscanner dotnet'
   }
 
   stages {
