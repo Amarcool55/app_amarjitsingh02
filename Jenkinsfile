@@ -70,6 +70,7 @@ pipeline {
 		}
 
         echo "Run Kubernetes Deployment"
+        bat "gcloud auth login"
         bat "gcloud container clusters get-credentials kubernetes-cluster-amarjitsingh02 --zone us-central1-c --project rapid-smithy-358905"
         bat "kubectl apply -f deployment.yaml"
       }
