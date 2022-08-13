@@ -20,7 +20,7 @@ namespace nagp_devops_us.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new ErrorViewModel { EnvVars = new List<string> { Environment.GetEnvironmentVariable("player_initial_lives"), Environment.GetEnvironmentVariable("ui_properties_file_name") } });
         }
 
         public IActionResult Privacy()

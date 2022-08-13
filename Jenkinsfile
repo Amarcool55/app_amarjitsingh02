@@ -70,6 +70,7 @@ pipeline {
 		}
 
         echo "Run Kubernetes Deployment"
+        bat "kubectl apply -f deployment.yaml"
       }
     }
     
