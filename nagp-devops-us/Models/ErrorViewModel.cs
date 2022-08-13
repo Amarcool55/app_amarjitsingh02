@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace nagp_devops_us.Models
 {
@@ -7,5 +8,7 @@ namespace nagp_devops_us.Models
         public string RequestId { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+
+        public List<KeyValuePair<string, string>> EnvVars { get; set; }
     }
 }

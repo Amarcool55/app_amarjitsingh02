@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment-master
+  namespace: kubernetes-cluster-amarjitsingh02
+  labels:
+    app: dotnet-app-master
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: dotnet-app-master
+  template:
+    metadata:
+      labels:
+        app: dotnet-app-master
+    spec:
+      containers:
+        - name: dotnet-app-master
+          image: amarcool55/i-amarjitsingh02-master:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+           - configMapRef:
+                name: app-config-master
+           - secretRef:
+                name: app-secret-master
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-dotnet-app-master
+  namespace: kubernetes-cluster-amarjitsingh02
+spec:
+  type: LoadBalancer
+  selector:
+    app: dotnet-app-master
+  ports:
+  - port: 8008
+    targetPort: 80
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config-master
+  namespace: kubernetes-cluster-amarjitsingh02
+data:
+  # property-like keys; each key maps to a simple value
+  player_initial_lives: "3"
+  ui_properties_file_name: "user-interface.properties"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secret-master
+  namespace: kubernetes-cluster-amarjitsingh02
+data:
+  db_password: "UGFzc3dvcmRAMTIz"
+  secret1: "VGhpcyBpcyBzZWNyZXQ="
+type: Opaque
