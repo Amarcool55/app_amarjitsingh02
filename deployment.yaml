@@ -26,6 +26,8 @@ spec:
           envFrom:
            - configMapRef:
                 name: app-config-master
+           - secretRef:
+                name: app-secret-master
 ---
 apiVersion: v1
 kind: Service
@@ -49,3 +51,13 @@ data:
   # property-like keys; each key maps to a simple value
   player_initial_lives: "3"
   ui_properties_file_name: "user-interface.properties"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secret-master
+  namespace: kubernetes-cluster-amarjitsingh02
+data:
+  db_password: "UGFzc3dvcmRAMTIz"
+  secret1: "VGhpcyBpcyBzZWNyZXQ="
+type: Opaque

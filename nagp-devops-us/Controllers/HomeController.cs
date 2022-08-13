@@ -20,7 +20,16 @@ namespace nagp_devops_us.Controllers
 
         public IActionResult Index()
         {
-            return View(new ErrorViewModel { EnvVars = new List<string> { Environment.GetEnvironmentVariable("player_initial_lives"), Environment.GetEnvironmentVariable("ui_properties_file_name") } });
+            return View(new ErrorViewModel
+            {
+                EnvVars = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("player_initial_lives",Environment.GetEnvironmentVariable("player_initial_lives")),
+                    new KeyValuePair<string, string>("ui_properties_file_name", Environment.GetEnvironmentVariable("ui_properties_file_name")),
+                    new KeyValuePair<string, string>("db_password", Environment.GetEnvironmentVariable("db_password")),
+                    new KeyValuePair<string, string>("secret1", Environment.GetEnvironmentVariable("secret1"))
+                }
+            });
         }
 
         public IActionResult Privacy()
@@ -36,8 +45,8 @@ namespace nagp_devops_us.Controllers
 
         public bool TestFunction(bool val)
         {
-           //Added for coverage
-           Console.WriteLine("coverage");
+            //Added for coverage
+            Console.WriteLine("coverage");
             return val;
         }
     }

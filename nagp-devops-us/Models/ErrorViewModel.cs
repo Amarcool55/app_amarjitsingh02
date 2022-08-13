@@ -9,6 +9,6 @@ namespace nagp_devops_us.Models
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-        public List<string> EnvVars { get; set; }
+        public List<KeyValuePair<string, string>> EnvVars { get; set; }
     }
 }
