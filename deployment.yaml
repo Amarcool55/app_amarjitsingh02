@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment-master
+  name: app-deployment-develop
   namespace: kubernetes-cluster-amarjitsingh02
   labels:
-    app: dotnet-app-master
+    app: dotnet-app-develop
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: dotnet-app-master
+      app: dotnet-app-develop
   template:
     metadata:
       labels:
-        app: dotnet-app-master
+        app: dotnet-app-develop
     spec:
       containers:
-        - name: dotnet-app-master
-          image: amarcool55/i-amarjitsingh02-master:latest
+        - name: dotnet-app-develop
+          image: amarcool55/i-amarjitsingh02-develop:latest
           imagePullPolicy: Always
           ports:
             - name: http
@@ -25,37 +25,37 @@ spec:
               protocol: TCP
           envFrom:
            - configMapRef:
-                name: app-config-master
+                name: app-config-develop
            - secretRef:
-                name: app-secret-master
+                name: app-secret-develop
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: lb-dotnet-app-master
+  name: lb-dotnet-app-develop
   namespace: kubernetes-cluster-amarjitsingh02
 spec:
   type: LoadBalancer
   selector:
-    app: dotnet-app-master
+    app: dotnet-app-develop
   ports:
-  - port: 8008
+  - port: 8009
     targetPort: 80
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: app-config-master
+  name: app-config-develop
   namespace: kubernetes-cluster-amarjitsingh02
 data:
   # property-like keys; each key maps to a simple value
-  player_initial_lives: "3"
-  ui_properties_file_name: "user-interface.properties"
+  player_initial_lives: "5"
+  ui_properties_file_name: "user-interfacedev.properties"
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: app-secret-master
+  name: app-secret-develop
   namespace: kubernetes-cluster-amarjitsingh02
 data:
   db_password: "UGFzc3dvcmRAMTIz"
